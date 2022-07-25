@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    annotation-position: Deployment
+  labels:
+    easytravel-tier: easytravel-nginx
+    label-position: Deployment
+  name: easytravel-nginx
+  namespace: easytravel-nonprod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      easytravel-tier: easytravel-nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        annotation-position: Template
+        version: 2.0.0.3256
+      labels:
+        easytravel-tier: easytravel-nginx
+        label-position: Template
+        tier: nginx
+        team: easytravel-devops
+        app.kubernetes.io/name: easytravel-nginx
+        app.kubernetes.io/part-of: easytravel
+        app.kubernetes.io/version: 2.0.0.3256
+      name: easytravel-nginx
+    spec:
+      containers:
+      - env:
+        - name: ET_FRONTEND_LOCATION
+          value: easytravel-frontend-service:8080
+        - name: DT_RELEASE_VERSION
+          value: 2.0.0.3322
+        - name: DT_RELEASE_STAGE
+          value: easytravel-nonprod
+        - name: DT_RELEASE_PRODUCT
+          value: easytravel
+        image: dynatrace/easytravel-nginx:2.0.0.3322
+        imagePullPolicy: Always
+        name: easytravel-nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    easytravel-tier: easytravel-nginx-service
+  name: easytravel-nonprod-nginx-service
+  namespace: easytravel-nonprod
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - protocol: TCP
+    targetPort: 80
+    port: 80
+  selector:
+    easytravel-tier: easytravel-nginx
+  sessionAffinity: None
+  type: LoadBalancer
