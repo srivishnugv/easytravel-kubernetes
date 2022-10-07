@@ -29,7 +29,7 @@ If you want to run traffic manually to your shiny new easytravel application, yo
 
 The Angular frontend is available at ``http://<kubernetes-worker-node>:30081``
 
-Alternatively, you can expose the easytravel-frontend & easytravel-angular-frontend deployments via load balancers. 
+Alternatively, you can expose the easytravel-frontend & easytravel-angular-frontend deployments publicly via load balancers. 
 
 # LICENSE
 easyTravel Docker is licensed under the MIT License.  For more information please refer to the easyTravel-Docker repository.
