@@ -6,7 +6,7 @@ You can deploy Easytravel to the cluster using the command: ``kubectl create -f 
 
 -----------------------
 Once you have done this easytravel should start right up with traffic running automatically. There is nothing else needed to be done to start seeing data if you are monitoring this with Dynatrace.
-The loadgenerator will automatically start running traffic on the application
+The loadgenerator will automatically start running backend (service) traffic on the application. Frontend traffic must be generated manually or via synthetics. 
 
 This will create:
 - a kubernetes namespace called "easytravel"
