@@ -218,7 +218,6 @@ metadata:
   name: easytravel-frontend-service
   namespace: easytravel
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - name: port1
     port: 8080
@@ -242,7 +241,6 @@ metadata:
   name: easytravel-angular-frontend-service
   namespace: easytravel
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - name: web
     port: 8080
